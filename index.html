@@ -1,206 +1,281 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Albin Anthony</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JK" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.5;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-    .jumbotron {
-      background-color: #660022;
-      color: #fff;
-    }
-    .card {
-      margin-bottom: 20px;
-    }
-    .card-header {
-      background-color: #660022;
-      color: #fff;
-    }
-    .card-body {
-      background-color: #fff;
-    }
-    .card-title {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-    .card-text {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-    .list-group-item {
-      background-color: #f8f9fa;
-      border-color: #dee2e6;
-      font-size: 18px;
-    }
-    .list-group-item:hover {
-      background-color: #e9ecef;
-    }
-    .footer {
-      background-color: #660022;
-      color: #fff;
-      padding: 20px 0;
-    }
-    .footer p {
-      margin-bottom: 0;
-    }
-  </style>
+<html><head>
+<title>Albin Anthony - Software Developer</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/objects/Water.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/objects/Sky.js"></script>
+<style>
+  body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; }
+  canvas { display: block; }
+  #card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+  #card h1 { 
+    margin: 0; 
+    font-size: 24px; 
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  #card h2 { 
+    margin: 5px 0; 
+    font-size: 18px; 
+    color: #f0f0f0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  #card p { 
+    margin: 10px 0; 
+    font-size: 14px; 
+    line-height: 1.5;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  #card ul { 
+    padding-left: 20px; 
+    margin: 10px 0;
+  }
+  #card li { 
+    margin-bottom: 5px; 
+    font-size: 14px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  .section { 
+    margin-top: 15px; 
+    border-top: 1px solid rgba(255,255,255,0.3); 
+    padding-top: 15px;
+  }
+  .skill-tag {
+    display: inline-block;
+    background-color: rgba(52, 152, 219, 0.7);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  #modeToggle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  #modeToggle:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+</style>
 </head>
 <body>
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4">Albin Anthony</h1>
-      <p class="lead">Python Developer | Technical Trainer | Ethical Hacker</p>
+<div id="card">
+  <h1>Albin Anthony</h1>
+  <h2>Software Developer</h2>
+  <p><strong>馃搷 Coimbatore</strong> | 馃摫 06379056811 | 鉁夛笍 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82e3eee0ebece3ecf6edecfbbbb4b2c2e5efe3ebeeace1edef">[email&#160;protected]</a></p>
+  <p><a href="https://in.linkedin.com/in/albin-antony-435b1b236" target="_blank">馃敆 LinkedIn</a></p>
+  
+  <div class="section">
+    <h3>Summary</h3>
+    <p>Highly skilled full-stack developer with expertise in Django, Python, and web technologies. Led successful projects like TopStopStore, Everity, and OneCare. Designed complex systems like RPM V2. Experienced in training and team leadership.</p>
+  </div>
+
+  <div class="section">
+    <h3>Skills</h3>
+    <div>
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">Django</span>
+      <span class="skill-tag">Flask</span>
+      <span class="skill-tag">Fastapi</span>
+      <span class="skill-tag">Selenium</span>
+      <span class="skill-tag">Streamlit</span>
+      <span class="skill-tag">REST API</span>
+      <span class="skill-tag">HTML/CSS</span>
+      <span class="skill-tag">HTMX</span>
+      <span class="skill-tag">Linux</span>
+      <span class="skill-tag">Git</span>
+      <span class="skill-tag">Prompt Engineering</span>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Summary</h2>
-          </div>
-          <div class="card-body">
-            <p class="card-text">Experienced Developer, Trainer, and Administrator with 6+ years of experience in a data-oriented environment.</p>
-            <p class="card-text">Strong verbal and written communication skills.</p>
-            <p class="card-text">Strong track record in developing scalable backend applications.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Work Experience</h2>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Python Developer/Trainer, OneData Software Solutions, Coimbatore, IN</h3>
-            <p class="card-text">Developed scalable web applications using Python, ensuring efficient and reliable functionality.</p>
-            <p class="card-text">Created APIs to facilitate data exchange and communication between different software components.</p>
-            <p class="card-text">Debugged and optimized code for enhanced performance and reduced error rates.</p>
-            <p class="card-text">Utilized version control systems, such as Git, to manage and track code changes effectively.</p>
-            <p class="card-text">Leveraged AWS cloud services to deploy, host, and scale applications in a secure and cost-effective manner.</p>
-            <p class="card-text">Conducted Python training sessions for individuals and teams, imparting essential programming skills and best practices to learners of various backgrounds.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Skills</h2>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Programming</h3>
-            <ul class="list-group">
-              <li class="list-group-item">Python</li>
-              <li class="list-group-item">Bash</li>
-              <li class="list-group-item">Linux</li>
-            </ul>
-            <h3 class="card-title">Data processing/wrangling</h3>
-            <ul class="list-group">
-              <li class="list-group-item">SQL</li>
-              <li class="list-group-item">pandas</li>
-              <li class="list-group-item">numpy</li>
-            </ul>
-            <h3 class="card-title">Data visualization</h3>
-            <ul class="list-group">
-              <li class="list-group-item">matplotlib</li>
-              <li class="list-group-item">seaborn</li>
-              <li class="list-group-item">plotly</li>
-            </ul>
-            <h3 class="card-title">Model deployment</h3>
-            <ul class="list-group">
-              <li class="list-group-item">streamlit</li>
-              <li class="list-group-item">gradio</li>
-              <li class="list-group-item">Heroku</li>
-              <li class="list-group-item">AWS</li>
-              <li class="list-group-item">Rail</li>
-            </ul>
-            <h3 class="card-title">Machine Learning</h3>
-            <ul class="list-group">
-              <li class="list-group-item">scikit-learn</li>
-              <li class="list-group-item">Deep Learning</li>
-              <li class="list-group-item">TensorFlow</li>
-              <li class="list-group-item">PyTorch</li>
-            </ul>
-            <h3 class="card-title">Web development</h3>
-            <ul class="list-group">
-              <li class="list-group-item">Django</li>
-              <li class="list-group-item">Flask</li>
-              <li class="list-group-item">FastAPI</li>
-              <li class="list-group-item">HTML</li>
-              <li class="list-group-item">CSS</li>
-              <li class="list-group-item">JavaScript</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Education</h2>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Bachelor of Science (Psychology), Annamalai University, Chidambaram</h3>
-            <p class="card-text">Research Methodology: Developed strong skills in experimental design, data analysis, and research methods to conduct and evaluate psychological studies and experiments.</p>
-            <p class="card-text">Cognitive Psychology: Studied mental processes such as memory, perception, and problem-solving to understand how individuals think, reason, and make decisions.</p>
-            <p class="card-text">Abnormal Psychology: Investigated various mental health disorders, their diagnosis, and treatment options to better comprehend and address psychological challenges.</p>
-            <p class="card-text">Social Psychology: Explored the influence of social interactions, group dynamics, and societal factors on human behavior and attitudes.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Address</h2>
-          </div>
-          <div class="card-body">
-            <p class="card-text">Albin Anthony, 19/3,</p>
-            <p class="card-text">Mounaswamy Nagar, Vilankurichi Road,</p>
-            <p class="card-text">Coimbatore, Tamil Nadu,</p>
-            <p class="card-text">India - 641035</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Social Media</h2>
-          </div>
-          <div class="card-body">
-            <div class="d-flex justify-content-between">
-              <a href="https://www.linkedin.com/in/albin-antony-435b1b236/" target="_blank" class="list-group-item list-group-item-action"><i class="fab fa-linkedin"></i> LinkedIn</a>
-              <a href="https://github.com/IbhaX" target="_blank" class="list-group-item list-group-item-action"><i class="fab fa-github"></i> GitHub</a>
-              <a href="https://www.facebook.com/iamibha" target="_blank" class="list-group-item list-group-item-action"><i class="fab fa-facebook"></i> Facebook</a>
-              <a href="https://wa.link/deplxo" target="_blank" class="list-group-item list-group-item-action"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-              <a href="https://t.me/PsYcHeDeLlO" target="_blank" class="list-group-item list-group-item-action"><i class="fab fa-telegram"></i> Telegram</a>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Contact</h2>
-          </div>
-          <div class="card-body">
-            <p class="card-text">Email: albin.anthony@onedatasoftware.com</p>
-            <p class="card-text">Phone: +91 63790 56811</p>
-          </div>
-        </div>
-      </div>
-    </div>
+
+  <div class="section">
+    <h3>Experience</h3>
+    <h4>Software Developer at OneData Software Solutions</h4>
+    <p>04/2023 - Present | Coimbatore</p>
+    <ul>
+      <li>Led Django and Python training for teams</li>
+      <li>Managed Nishub Project, RPM V2, and TopStopStore</li>
+      <li>Implemented ETL processes and cloud integrations</li>
+      <li>Optimized OneCare features and performance</li>
+      <li>Automated processes for AP-360</li>
+      <li>Led junior developers in RPM project</li>
+    </ul>
   </div>
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2021 Albin Anthony</p>
-    </div>
-  </footer>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JK" crossorigin="anonymous"></script>
-</body>
-              </html>
-                
+
+  <div class="section">
+    <h3>Projects</h3>
+    <p><strong>TopStopStores:</strong> ETL process on employee dataset using AWS services</p>
+    <p><strong>OneCare:</strong> Healthcare product management and optimization</p>
+    <p><strong>Nishub:</strong> Technical guidance and code review</p>
+  </div>
+
+  <div class="section">
+    <h3>Education</h3>
+    <p>B.Sc Psychology | Annamalai University | 2017 - 2021</p>
+  </div>
+
+  <div class="section">
+    <h3>Languages</h3>
+    <p>English (Advanced), Malayalam (Proficient), Tamil (Advanced)</p>
+  </div>
+</div>
+<button id="modeToggle">Toggle Mode</button>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+let scene, camera, renderer, water, sun, sky, pmremGenerator, controls;
+
+const skills = [
+  'Python', 'Django', 'Flask', 'Fastapi', 'Selenium', 'Streamlit', 
+  'REST API', 'HTML/CSS', 'HTMX', 'Linux', 'Git', 'Prompt Engineering'
+];
+
+const modes = [
+  { name: 'Day', phi: 0.4, theta: 0.25, turbidity: 10, rayleigh: 2, mieCoefficient: 0.005, mieDirectionalG: 0.8, waterColor: 0x001e0f },
+  { name: 'Night', phi: 0.4, theta: 0.25, turbidity: 10, rayleigh: 2, mieCoefficient: 0.005, mieDirectionalG: 0.8, waterColor: 0x000033 },
+  { name: 'Dawn', phi: 0.1, theta: 0.25, turbidity: 5, rayleigh: 1, mieCoefficient: 0.005, mieDirectionalG: 0.8, waterColor: 0x001e3f },
+  { name: 'Dusk', phi: 0.9, theta: 0.25, turbidity: 5, rayleigh: 1, mieCoefficient: 0.005, mieDirectionalG: 0.8, waterColor: 0x001e3f }
+];
+
+let currentModeIndex = 0;
+
+function init() {
+  scene = new THREE.Scene();
+  
+  camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
+  camera.position.set(30, 30, 100);
+
+  sun = new THREE.Vector3();
+  
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  document.body.appendChild(renderer.domElement);
+  
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.maxPolarAngle = Math.PI * 0.495;
+  controls.target.set(0, 10, 0);
+  controls.minDistance = 40.0;
+  controls.maxDistance = 200.0;
+  controls.update();
+  
+  const waterGeometry = new THREE.PlaneGeometry(10000, 10000);
+  water = new THREE.Water(
+    waterGeometry,
+    {
+      textureWidth: 512,
+      textureHeight: 512,
+      waterNormals: new THREE.TextureLoader().load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/waternormals.jpg', function (texture) {
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      }),
+      sunDirection: new THREE.Vector3(),
+      sunColor: 0xffffff,
+      waterColor: modes[currentModeIndex].waterColor,
+      distortionScale: 3.7,
+      fog: scene.fog !== undefined
+    }
+  );
+  water.rotation.x = -Math.PI / 2;
+  scene.add(water);
+  
+  sky = new THREE.Sky();
+  sky.scale.setScalar(10000);
+  scene.add(sky);
+  
+  pmremGenerator = new THREE.PMREMGenerator(renderer);
+  
+  updateSun();
+
+  document.getElementById('modeToggle').addEventListener('click', toggleMode);
+}
+
+function updateSun() {
+  const mode = modes[currentModeIndex];
+  const phi = THREE.MathUtils.degToRad(90 - mode.phi * 180);
+  const theta = THREE.MathUtils.degToRad(mode.theta * 360);
+  sun.setFromSphericalCoords(1, phi, theta);
+
+  sky.material.uniforms['sunPosition'].value.copy(sun);
+  water.material.uniforms['sunDirection'].value.copy(sun).normalize();
+
+  const skyUniforms = sky.material.uniforms;
+  skyUniforms['turbidity'].value = mode.turbidity;
+  skyUniforms['rayleigh'].value = mode.rayleigh;
+  skyUniforms['mieCoefficient'].value = mode.mieCoefficient;
+  skyUniforms['mieDirectionalG'].value = mode.mieDirectionalG;
+
+  water.material.uniforms['waterColor'].value.setHex(mode.waterColor);
+
+  scene.environment = pmremGenerator.fromScene(sky).texture;
+  
+  renderer.toneMappingExposure = mode.name === 'Night' ? 0.1 : 0.5;
+}
+
+function toggleMode() {
+  currentModeIndex = (currentModeIndex + 1) % modes.length;
+  updateSun();
+  document.getElementById('modeToggle').textContent = `Toggle Mode (${modes[currentModeIndex].name})`;
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  render();
+}
+
+function render() {
+  water.material.uniforms['time'].value += 1.0 / 60.0;
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+window.addEventListener('resize', onWindowResize);
+
+init();
+animate();
+</script>
+</body></html>
